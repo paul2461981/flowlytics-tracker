@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Flowlytics Tracker Example</title>
+  </head>
+  <body>
+    <h1>Flowlytics Tracker Example</h1>
+    <p>Open the developer console, then click the button to send a sample event.</p>
+    <button id="track-button" type="button">Send sample event</button>
+
+    <script type="module">
+      import { createFlowlytics } from "../../src/index.js";
+
+      const flowlytics = createFlowlytics({
+        endpoint: "https://your-public-endpoint.example/v1/events",
+        site: "https://flowlytics.net"
+      });
+
+      flowlytics.page();
+
+      document.getElementById("track-button").addEventListener("click", async () => {
+        try {
+          await flowlytics.track("CTA Clicked", {
+            location: "example_page"
+          });
+          console.log("Sample event sent");
+        } catch (error) {
+          console.error(error);
+        }
+      });
+    </script>
+  </body>
+</html>
